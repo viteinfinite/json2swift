@@ -1,0 +1,15 @@
+{
+  "name": "json2swift",
+  "version": "1.0.0",
+  "description": "Convert JSON to Swift entities",
+  "main": "js2swift.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "swift",
+    "json"
+  ],
+  "author": "Simone Civetta",
+  "license": "ISC"
+}
