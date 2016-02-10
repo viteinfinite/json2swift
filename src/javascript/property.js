@@ -8,6 +8,9 @@ export default class Property {
 		if (typeof(value) == "string") {
 			return "String";
 		}
+		if (typeof(value) == "boolean") {
+			return "Bool";
+		}
 		else if (typeof(value) == "number") {
 			if (String(value).indexOf(".") != -1) {
 				return "Float";

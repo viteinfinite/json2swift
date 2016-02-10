@@ -40,14 +40,19 @@ gulp.task('clean-scripts', function() {
 	.pipe(rimraf());
 });
 
-gulp.task('build-tests', function() {
+gulp.task('copy-test-data', function() {
+	return gulp.src('test/data/**/*')
+	.pipe(gulp.dest('build/test/data'));
+});
+
+gulp.task('build-tests', ['copy-test-data'], function() {
 	return gulp.src('test/**/*.js')
 	.pipe(babel())
 	.pipe(gulp.dest('build/test'));
 });
 
-gulp.task('mocha-tests', function() {
-	return gulp.src(['build/test/unit/*Test.js', 'build/test/integration/*Test.js'])
+gulp.task('mocha-tests', ['build-tests'], function() {
+	return gulp.src(['build/test/*Test.js'])
 	.pipe(mocha({timeout: 5000}))
 	.once('error', function(err) {
 		process.exit(1);
