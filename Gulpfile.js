@@ -10,6 +10,7 @@ var runSequence = require('run-sequence');
 var rimraf = require('gulp-rimraf');
 var eslint = require('gulp-eslint');
 var spawn = require('child_process').spawn;
+var browserify = require('gulp-browserify');
 var node;
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -87,7 +88,20 @@ gulp.task('exec', function() {
 			gulp.log('Error detected, waiting for changes...');
 		}
 	});
-})
+});
+
+gulp.task('browserify', function() {
+	return gulp.src('build/main.js')
+		.pipe(browserify({
+		  insertGlobals: true,
+		  debug: !gulp.env.production
+		}))
+		.pipe(gulp.dest('./build/browser/'))
+});
+
+gulp.task('build-for-browser', ['clean-build'], function(callback) {
+	runSequence('build', 'browserify', callback);
+});
 
 gulp.task('watch', ['build'], function(callback) {
 	runSequence('exec', callback);

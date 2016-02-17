@@ -159,3 +159,7 @@ module.exports = {
 		}
 	}
 }
+
+if (typeof(window) != "undefined") {
+	window.json2swift = module.exports;
+}
