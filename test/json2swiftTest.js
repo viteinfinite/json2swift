@@ -70,6 +70,40 @@ describe('json2swift', function() {
 				var expectedResult = fs.readFileSync("test/data/arrayOfStrings.swift", 'utf8');
 				result.should.equal(expectedResult);
 			});
+
+			it('should convert a JSON object containing a nested object', function() {
+				var sourceJSON = {"nestedObject": { "array": ["1", "2"]}};
+				var result = json2swift.parseDocument(sourceJSON, writers);
+				var expectedResult = fs.readFileSync("test/data/nestedObject.swift", 'utf8');
+				result.should.equal(expectedResult);
+			});
+
+			it('should convert a JSON object with multiple keys', function() {
+				var sourceJSON = {"array": ["1", "2"], "uinteger": 3};
+				var result = json2swift.parseDocument(sourceJSON, writers);
+				var expectedResult = fs.readFileSync("test/data/multipleKeys.swift", 'utf8');
+				result.should.equal(expectedResult);
+			});
+
+			it('should convert a JSON array', function() {
+				var sourceJSON = [{"uinteger": 1}];
+				var result = json2swift.parseDocument(sourceJSON, writers);
+				var expectedResult = fs.readFileSync("test/data/uint.swift", 'utf8');
+				result.should.equal(expectedResult);
+			});
+
+			it('should convert a JSON array of arrays', function() {
+				var sourceJSON = [[{"uinteger": 1}]];
+				var result = json2swift.parseDocument(sourceJSON, writers);
+				var expectedResult = fs.readFileSync("test/data/uint.swift", 'utf8');
+				result.should.equal(expectedResult);
+			});
+
+			it('should convert an empty array of arrays with no error', function() {
+				var sourceJSON = [[]];
+				var result = json2swift.parseDocument(sourceJSON, writers);
+				result.should.equal("");
+			});
 		});
 
 	});

@@ -27,9 +27,8 @@ function parseNode(node, name) {
 		return;
 	}
 	
-	// FIXME: array of arrays are not supported
 	// TODO: what if length == 0?
-	if (Array.isArray(node) && node.length > 0) {
+	while(Array.isArray(node)) {
 		node = node[0];
 	}
 
