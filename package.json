@@ -26,5 +26,6 @@
     "gulp-rimraf": "^0.2.0",
     "mocha": "^2.4.5",
     "run-sequence": "^1.1.5"
-  }
+  },
+  "dependencies": {}
 }

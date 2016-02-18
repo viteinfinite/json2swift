@@ -28,7 +28,12 @@ gulp.task('build-sources', function(callback) {
 });
 
 gulp.task('build', ['clean-build'], function(callback) {
-	runSequence('build-sources', callback);
+	runSequence('build-sources', 'copy-assets', 'browserify', callback);
+});
+
+gulp.task('copy-assets', function() {
+  return gulp.src(['src/assets/**/*'])
+    .pipe(gulp.dest('build/public/'));
 });
 
 gulp.task('clean-build', function() {
@@ -91,12 +96,12 @@ gulp.task('exec', function() {
 });
 
 gulp.task('browserify', function() {
-	return gulp.src('build/main.js')
+	return gulp.src(['build/exports.js'])
 		.pipe(browserify({
 		  insertGlobals: true,
 		  debug: !gulp.env.production
 		}))
-		.pipe(gulp.dest('./build/browser/'))
+		.pipe(gulp.dest('./build/public/js/'))
 });
 
 gulp.task('build-for-browser', ['clean-build'], function(callback) {
