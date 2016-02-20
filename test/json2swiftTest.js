@@ -3,6 +3,7 @@ var expect = require('chai').expect;
 var should = require('chai').should();
 var fs = require('fs');
 var json2swift = require('../main');
+var allWriters = require('../writers');
 
 describe('json2swift', function() {
 	describe('The parseDocument function', function() {
@@ -12,7 +13,7 @@ describe('json2swift', function() {
 		context('given the base writer', function() {
 
 			beforeEach(function() {
-				writers = [json2swift.writers.base];
+				writers = [allWriters.base];
 			});
 
 			it('should convert a JSON object containing an unsigned integer', function() {
