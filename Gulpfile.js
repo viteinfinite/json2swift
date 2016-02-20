@@ -11,6 +11,10 @@ var rimraf = require('gulp-rimraf');
 var eslint = require('gulp-eslint');
 var spawn = require('child_process').spawn;
 var browserify = require('gulp-browserify');
+var deploy = require("gulp-gh-pages");
+var cp = require('child_process');
+var jekyll = process.platform === 'win32' ? 'jekyll.bat' : 'jekyll';
+
 var node;
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -25,10 +29,6 @@ gulp.task('build-js', function() {
 
 gulp.task('build-sources', function(callback) {
 	runSequence('build-js', callback);
-});
-
-gulp.task('build', ['clean-build'], function(callback) {
-	runSequence('build-sources', 'copy-assets', 'browserify', callback);
 });
 
 gulp.task('copy-assets', function() {
@@ -46,36 +46,9 @@ gulp.task('clean-scripts', function() {
 	.pipe(rimraf());
 });
 
-gulp.task('copy-test-data', function() {
-	return gulp.src('test/data/**/*')
-	.pipe(gulp.dest('build/test/data'));
-});
-
-gulp.task('build-tests', ['copy-test-data'], function() {
-	return gulp.src('test/**/*.js')
-	.pipe(babel())
-	.pipe(gulp.dest('build/test'));
-});
-
-gulp.task('mocha-tests', ['build-tests'], function() {
-	return gulp.src(['build/test/*Test.js'])
-	.pipe(mocha({timeout: 5000}))
-	.once('error', function(err) {
-		process.exit(1);
-	})
-	.once('end', function() {
-		process.exit(0);
-	});
-});
-
 // default gulp task
 gulp.task('default', function(callback) {
 	runSequence('build', callback);
-});
-
-//'build-tests',
-gulp.task('launch-tests', function(callback) {
-	runSequence('build', 'build-tests', 'mocha-tests', callback);
 });
 
 gulp.task('eslint', function() {
@@ -104,9 +77,44 @@ gulp.task('browserify', function() {
 		.pipe(gulp.dest('./build/public/js/'))
 });
 
-gulp.task('build-for-browser', ['clean-build'], function(callback) {
-	runSequence('build', 'browserify', callback);
+gulp.task('build', ['clean-build'], function(callback) {
+	runSequence('build-sources', 'copy-assets', 'browserify', callback);
 });
+
+/**
+ * Tests
+ */
+
+gulp.task('copy-test-data', function() {
+	return gulp.src('test/data/**/*')
+	.pipe(gulp.dest('build/test/data'));
+});
+
+gulp.task('build-tests', ['copy-test-data'], function() {
+	return gulp.src('test/**/*.js')
+	.pipe(babel())
+	.pipe(gulp.dest('build/test'));
+});
+
+gulp.task('mocha-tests', ['build-tests'], function() {
+	return gulp.src(['build/test/*Test.js'])
+	.pipe(mocha({timeout: 5000}))
+	.once('error', function(err) {
+		process.exit(1);
+	})
+	.once('end', function() {
+		process.exit(0);
+	});
+});
+
+gulp.task('launch-tests', function(callback) {
+	runSequence('build', 'build-tests', 'mocha-tests', callback);
+});
+
+
+/**
+ * Watch
+ */
 
 gulp.task('watch', ['build'], function(callback) {
 	runSequence('exec', callback);
@@ -119,4 +127,18 @@ gulp.task('watch', ['build'], function(callback) {
   	gulp.watch('build/main.js', function() {
   		runSequence('exec', callback);
   	});
+});
+
+/**
+ * Build the Jekyll Site
+ */
+
+gulp.task('jekyll-build', function (done) {
+    return cp.spawn( jekyll , ['build'], {stdio: 'inherit'})
+        .on('close', done);
+});
+
+gulp.task("deploy", ["jekyll-build"], function () {
+    return gulp.src("./build/public/**/*")
+        .pipe(deploy());
 });
