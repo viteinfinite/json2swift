@@ -1,4 +1,7 @@
 # json2swift (β)
+
+[![Build Status](https://travis-ci.org/viteinfinite/json2swift.svg?branch=master)](https://travis-ci.org/viteinfinite/json2swift)
+
 Automatically create Swift entities from [JSON](http://www.json.org).
 
 ## HTML Interface
