@@ -41,11 +41,6 @@ gulp.task('clean-build', function() {
 	.pipe(rimraf());
 });
 
-gulp.task('clean-scripts', function() {
-	return gulp.src('build/**/*.js', {read: false})
-	.pipe(rimraf());
-});
-
 // default gulp task
 gulp.task('default', function(callback) {
 	runSequence('build', callback);
@@ -133,7 +128,12 @@ gulp.task('watch', ['build'], function(callback) {
  * Build the Jekyll Site
  */
 
-gulp.task('jekyll-build', function (done) {
+gulp.task('jekyll-clean', function() {
+	return gulp.src('_site', {read: false})
+	.pipe(rimraf());
+});
+
+gulp.task('jekyll-build', ['jekyll-clean'], function (done) {
     return cp.spawn( jekyll , ['build'], {stdio: 'inherit'})
         .on('close', done);
 });
