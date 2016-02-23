@@ -73,6 +73,21 @@ describe('writers', function() {
 				result.should.equal(expectedResult);
 			});
 		});
+
+
+		context('given the NSObject writer', function() {
+
+			beforeEach(function() {
+				writers = [allWriters.base, allWriters.class, allWriters.nsObject];
+			});
+
+			it('should convert a JSON object containing an unsigned integer', function() {
+				var sourceJSON = {"uinteger": 3};
+				var result = json2swift.parseDocument(sourceJSON, writers);
+				var expectedResult = fs.readFileSync("test/data/nsobject-uint.swift", 'utf8');
+				result.should.equal(expectedResult);
+			});
+		});
 	});
 });
 

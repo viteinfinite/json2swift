@@ -138,7 +138,7 @@ module.exports = {
 			return "class " + entity.name.capitalizeFirstLetter() + " : NSObject {\n"
 		},
 
-		writeInitBeforeBody: function(entity) {
+		writeInitAfterBody: function(entity) {
 			return "\t\tsuper.init()\n"
 		}
 	}
