@@ -133,7 +133,7 @@ gulp.task('jekyll-clean', function() {
 	.pipe(rimraf());
 });
 
-gulp.task('jekyll-build', ['jekyll-clean'], function (done) {
+gulp.task('jekyll-build', ['jekyll-clean', 'build'], function (done) {
     return cp.spawn( jekyll , ['build'], {stdio: 'inherit'})
         .on('close', done);
 });
