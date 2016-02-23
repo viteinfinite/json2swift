@@ -20,10 +20,10 @@
 			var destination = document.getElementById("destination");
 			
 			var writers = [json2swift.writers.base];
-			if (document.getElementById("cb-writer-class").checked) {
+			if (document.getElementById("radio-writer-class").checked) {
 				writers.push(json2swift.writers.class);
 			}
-			if (document.getElementById("cb-writer-nsobject").checked) {
+			if (document.getElementById("radio-writer-nsobject").checked) {
 				writers.push(json2swift.writers.class);
 				writers.push(json2swift.writers.nsObject);
 			}
@@ -47,14 +47,23 @@
 
 			<div class="row">
 				<div id="writer-cbs">
-					<input type="checkbox" id="cb-writer-class">Class</input>
-					<input type="checkbox" id="cb-writer-nsobject">NSObject</input>
-					<input type="checkbox" id="cb-writer-argo">Argo</input>
+					<div class="six columns">
+						<input type="radio" name="representation" id="radio-writer-struct" checked>Struct<br>
+  						<input type="radio" name="representation" id="radio-writer-class">Class<br>
+  						<input type="radio" name="representation" id="radio-writer-nsobject">NSObject<br><br>
+					</div>
+					<div class="six columns">
+						<input type="checkbox" id="cb-writer-argo">Argo</input>
+					</div>
 				</div>		
 			</div>
 
 			<div class="row">
-				<textarea class="source" id="source" cols="70" rows="20"></textarea>
+				<textarea class="source" id="source">
+{
+	"name": "json2swift"
+}
+				</textarea>
 			</div>
 			
 			<div class="row">
