@@ -7,9 +7,10 @@ export default class Entity {
 	write(writer) {
 		var result = writer.writeEntityHeader(this);
 		result += writer.writeOpenDeclaration(this);
-		for (var property of this.properties) {
-			result += writer.writeProperty(property) + "\n";
-		}
+		result += this.properties.map(p =>
+			writer.writeProperty(p)
+		).join("\n");
+		result += "\n"
 		result += writer.writeOpenInit(this);
 		result += writer.writeInitBeforeBody(this);
 		result += writer.writeInitBody(this);

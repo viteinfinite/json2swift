@@ -2,9 +2,6 @@ import Property from './Property';
 import Entity from './Entity';
 import writers from './Writers';
 
-var visitableNodeNames = [];
-var entities = [];
-
 // String prototypes
 
 String.prototype.capitalizeFirstLetter = function() {
@@ -13,7 +10,7 @@ String.prototype.capitalizeFirstLetter = function() {
 
 // Parsing
 
-function parseNode(node, name) {
+function parseNode(node, name, visitableNodeNames, entities) {
 	if (visitableNodeNames.indexOf(name) != -1) {
 		return;
 	}
@@ -23,12 +20,13 @@ function parseNode(node, name) {
 		node = node[0];
 	}
 
-	if (typeof(node) != "object") {
+	if (node === null || typeof(node) !== "object") {
 		return;
 	}
 	
 	visitableNodeNames.push(name);
 	var properties = [];
+
 	var keys = Object.keys(node);
 
 	for (var index = 0; index < keys.length; index++) {
@@ -37,7 +35,7 @@ function parseNode(node, name) {
 		var value = node[key];
 		properties.push(new Property(keyName, value));
 		if (typeof(value) == "object") {
-			parseNode(value, keyName);
+			parseNode(value, keyName, visitableNodeNames, entities);
 		}
 	}
 
@@ -46,17 +44,16 @@ function parseNode(node, name) {
 }
 
 module.exports = {
+	
 	parseDocument: function(document, appliedWriters) {
-		visitableNodeNames = [];
-		entities = [];
+		var visitableNodeNames = [];
+		var entities = [];
 
-		var result = "";
-		parseNode(document, null);
+		parseNode(document, null, visitableNodeNames, entities);
 		
 		var writer = writers.mergeWriters(appliedWriters); 
-		for (var entity of entities) {
-			result += entity.write(writer);
-		}
-		return result;
+		return entities.map ( e =>
+			e.write(writer)
+		).join("")
 	}
 }

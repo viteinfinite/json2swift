@@ -30,10 +30,17 @@ describe('json2swift', function() {
 				result.should.equal(expectedResult);
 			});
 
-			it('should convert a JSON object containing a float', function() {
-				var sourceJSON = {"float": 0.3};
+			it('should convert a JSON object containing an optional', function() {
+				var sourceJSON = {"optional": null};
 				var result = json2swift.parseDocument(sourceJSON, writers);
-				var expectedResult = fs.readFileSync("test/data/float.swift", 'utf8');
+				var expectedResult = fs.readFileSync("test/data/optional.swift", 'utf8');
+				result.should.equal(expectedResult);
+			});
+
+			it('should convert a JSON object containing a double', function() {
+				var sourceJSON = {"double": 0.3};
+				var result = json2swift.parseDocument(sourceJSON, writers);
+				var expectedResult = fs.readFileSync("test/data/double.swift", 'utf8');
 				result.should.equal(expectedResult);
 			});
 
@@ -109,8 +116,4 @@ describe('json2swift', function() {
 
 	});
 });
-
-				// var sourceJSON = {"pippo": 3, "topolino": "topo", "paperino": -1, "paperoga": 0.1, "campagna": [{"nome": "Nonna Papera"}, {"nome": "Ciccio"}], "paperone": {"deposito": "soldi"}, "nipoti": ["Quinno", "Quo", "Qua"]};
-				// var result = json2swift.parseDocument(sourceJSON, [json2swift.writers.base, json2swift.writers.argo, json2swift.writers.class, json2swift.writers.nsObject]);
-
 
