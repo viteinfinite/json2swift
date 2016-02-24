@@ -6,7 +6,9 @@ export default class Entity {
 
 	write(writer) {
 		var result = writer.writeEntityHeader(this);
-		result += writer.writeOpenDeclaration(this);
+		result += writer.writeOpenImplementation(this);
+		result += writer.writeInterfaces();
+		result += " {\n"
 		result += this.properties.map(p =>
 			writer.writeProperty(p)
 		).join("\n");
@@ -16,7 +18,7 @@ export default class Entity {
 		result += writer.writeInitBody(this);
 		result += writer.writeInitAfterBody(this);
 		result += writer.writeCloseInit(this);
-		result += writer.writeCloseDeclaration(this);
+		result += "}\n"
 		result += writer.writeEntityFooter(this);
 		result += writer.writeSpacer();
 		return result;

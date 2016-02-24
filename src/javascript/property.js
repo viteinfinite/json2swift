@@ -1,3 +1,11 @@
+// String prototypes
+
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
+// Property
+
 export default class Property {
 	constructor(name, value) {
 		this.name = name;
