@@ -73,7 +73,11 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('build', ['clean-build'], function(callback) {
-	runSequence('build-sources', 'copy-assets', 'browserify', callback);
+	runSequence('build-sources', 'copy-assets', callback);
+});
+
+gulp.task('build-for-web', function(callback) {
+	runSequence('build', 'browserify', callback);
 });
 
 /**
@@ -95,6 +99,7 @@ gulp.task('mocha-tests', ['build-tests'], function() {
 	return gulp.src(['build/test/*Test.js'])
 	.pipe(mocha({timeout: 5000}))
 	.once('error', function(err) {
+		console.log(err);
 		process.exit(1);
 	})
 	.once('end', function() {
@@ -133,7 +138,7 @@ gulp.task('jekyll-clean', function() {
 	.pipe(rimraf());
 });
 
-gulp.task('jekyll-build', ['jekyll-clean', 'build'], function (done) {
+gulp.task('jekyll-build', ['jekyll-clean', 'build-for-web'], function (done) {
     return cp.spawn( jekyll , ['build'], {stdio: 'inherit'})
         .on('close', done);
 });

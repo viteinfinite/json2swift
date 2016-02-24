@@ -1,6 +1,6 @@
-import Property from './Property';
-import Entity from './Entity';
-import writers from './Writers';
+import Property from './property.js';
+import Entity from './entity.js';
+import writers from './writers.js';
 
 // String prototypes
 

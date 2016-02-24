@@ -2,8 +2,8 @@ var assert = require('chai').assert;
 var expect = require('chai').expect;
 var should = require('chai').should();
 var fs = require('fs');
-var json2swift = require('../main');
-var allWriters = require('../writers');
+var json2swift = require('../main.js');
+var allWriters = require('../writers.js');
 
 describe('json2swift', function() {
 	describe('The parseDocument function', function() {
