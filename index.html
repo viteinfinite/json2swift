@@ -2,6 +2,8 @@
 	<head>
 		<title>json2swift | Generate boilerplate code for your structs or classes</title>
 		
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
 		<link href='https://fonts.googleapis.com/css?family=PT+Mono&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
@@ -17,8 +19,15 @@
 				.getElementById("source")
 				.value
 				.replace(new RegExp("\n", 'g'), " ");
-			var sourceJSON = JSON.parse(sourceText);
+
 			var destination = document.getElementById("destination");
+
+    		try {
+         		var sourceJSON = JSON.parse(sourceText);
+    		} catch(e) {
+        		destination.innerText = e;
+        		return;
+    		}			
 			
 			var writers = [json2swift.writers.base];
 			if (document.getElementById("radio-writer-class").checked) {
@@ -85,9 +94,14 @@
 
 			<footer>
 				<p>
-					Created by <a href="https://twitter.com/viteinfinite">Simone Civetta</a> - <a href="http://www.xebia.fr">Xebia IT Architects</a> -
-					Licensed under the <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a> -
-					<a href="https://github.com/viteinfinite/json2swift">GitHub Repo</a>
+					Created by <a href="https://twitter.com/viteinfinite">Simone Civetta</a> and licensed under the <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a>.
+					<br>
+					Please contribute to our <a href="https://github.com/viteinfinite/json2swift">GitHub Repo</a> and take a look at the <a href="https://github.com/viteinfinite/json2swift#credits">other credits</a>.
+				</p>
+				<p>
+					JSON2Swift is proudly supported by
+					<br>
+					<a href="http://www.xebia.fr"><img title="Xebia France" alt="Xebia France" class="xebia-logo" src="./images/xebia-fr-logo.png"></a>
 				</p>
 			</footer>
 		</div>
