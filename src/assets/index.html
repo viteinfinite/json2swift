@@ -2,6 +2,9 @@
 	<head>
 		<title>json2swift | Generate boilerplate code for your structs or classes</title>
 		
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+		<link href='https://fonts.googleapis.com/css?family=PT+Mono&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -27,8 +30,11 @@
 				writers.push(json2swift.writers.class);
 				writers.push(json2swift.writers.nsObject);
 			}
-			if (document.getElementById("cb-writer-argo").checked) {
+			if (document.getElementById("radio-writer-argo").checked) {
 				writers.push(json2swift.writers.argo);
+			}
+			if (document.getElementById("radio-writer-unbox").checked) {
+				writers.push(json2swift.writers.unbox);
 			}
 
 			destination.innerText = json2swift.parseDocument(sourceJSON, writers);
@@ -42,18 +48,22 @@
 
 		<div class="container">
 			<div class="row">
-				<h1>json2swift</h1>
+				<h1><img class="logo" src="./images/logo.svg" title="JSON2Swift" alt="JSON2Swift"></h1>
 			</div>
 
 			<div class="row">
 				<div id="writer-cbs">
 					<div class="six columns">
-						<input type="radio" name="representation" id="radio-writer-struct" checked>Struct<br>
-  						<input type="radio" name="representation" id="radio-writer-class">Class<br>
-  						<input type="radio" name="representation" id="radio-writer-nsobject">NSObject<br><br>
+						<h6>Choose a representation</h6>
+						<input type="radio" name="representation" id="radio-writer-struct" checked> Struct<br>
+  						<input type="radio" name="representation" id="radio-writer-class"> Class<br>
+  						<input type="radio" name="representation" id="radio-writer-nsobject"> NSObject<br><br>
 					</div>
 					<div class="six columns">
-						<input type="checkbox" id="cb-writer-argo">Argo</input>
+						<h6>...and a flavor</h6>
+						<input type="radio" name="flavor" id="radio-writer-none" checked> None<br>
+  						<input type="radio" name="flavor" id="radio-writer-argo"> Argo<br>
+  						<input type="radio" name="flavor" id="radio-writer-unbox"> Unbox
 					</div>
 				</div>		
 			</div>
@@ -61,7 +71,8 @@
 			<div class="row">
 				<textarea class="source" id="source">
 {
-	"name": "json2swift"
+	"name": "JSON2Swift",
+	"isYour": ["friend"]
 }
 				</textarea>
 			</div>
@@ -73,6 +84,19 @@
 			<div class="row"> 
 				<pre><code class="swift" id="destination">...</code></pre>
 			</div>
+
+			<footer>
+				<p>
+					Created by <a href="https://twitter.com/viteinfinite">Simone Civetta</a> and licensed under the <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a>.
+					<br>
+					Please contribute to our <a href="https://github.com/viteinfinite/json2swift">GitHub Repo</a> and take a look at the <a href="https://github.com/viteinfinite/json2swift#credits">other credits</a>.
+				</p>
+				<p>
+					JSON2Swift is proudly supported by
+					<br>
+					<a href="http://www.xebia.fr"><img title="Xebia France" alt="Xebia France" class="xebia-logo" src="./images/xebia-fr-logo.png"></a>
+				</p>
+			</footer>
 		</div>
 	</body>
 </html>
