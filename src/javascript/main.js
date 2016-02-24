@@ -1,54 +1,54 @@
-import Property from './property.js';
-import Entity from './entity.js';
-import writers from './writers';
+import Property from './property.js'
+import Entity from './entity.js'
+import writers from './writers'
 
 // Parsing
 
 var parser = {
-	
-	parseNode: function(node, name, visitableNodeNames, entities) {
-		if (visitableNodeNames.indexOf(name) != -1) {
-			return;
-		}
-		
-		while(Array.isArray(node)) {
-			node = node[0];
-		}
 
-		if (node === null || typeof(node) !== "object") {
-			return;
-		}
-		
-		visitableNodeNames.push(name);
-		var properties = [];
+  parseNode: function (node, name, visitableNodeNames, entities) {
+    if (visitableNodeNames.indexOf(name) !== -1) {
+      return
+    }
 
-		var keys = Object.keys(node);
+    while (Array.isArray(node)) {
+      node = node[0]
+    }
 
-		for (var index = 0; index < keys.length; index++) {
-			var key = keys[index];
-			var keyName = String(key);
-			var value = node[key];
-			properties.push(new Property(keyName, value));
-			if (typeof(value) == "object") {
-				parser.parseNode(value, keyName, visitableNodeNames, entities);
-			}
-		}
+    if (node === null || typeof node !== 'object') {
+      return
+    }
 
-		var entityName = name ? name : "Root";
-		entities.push(new Entity(entityName, properties));
-	},
+    visitableNodeNames.push(name)
+    var properties = []
 
-	parseDocument: function(document, appliedWriters) {
-		var visitableNodeNames = [];
-		var entities = [];
+    var keys = Object.keys(node)
 
-		parser.parseNode(document, null, visitableNodeNames, entities);
+    for (var index = 0; index < keys.length; index++) {
+      var key = keys[index]
+      var keyName = String(key)
+      var value = node[key]
+      properties.push(new Property(keyName, value))
+      if (typeof value === 'object') {
+        parser.parseNode(value, keyName, visitableNodeNames, entities)
+      }
+    }
 
-		var writer = writers.mergeWriters(appliedWriters); 
-		return entities.map ( e =>
-			e.write(writer)
-		).join("")
-	}
+    var entityName = name || 'Root'
+    entities.push(new Entity(entityName, properties))
+  },
+
+  parseDocument: function (document, appliedWriters) {
+    var visitableNodeNames = []
+    var entities = []
+
+    parser.parseNode(document, null, visitableNodeNames, entities)
+
+    var writer = writers.mergeWriters(appliedWriters)
+    return entities.map((e) =>
+      e.write(writer)
+    ).join('')
+  }
 }
 
-module.exports = parser;
+module.exports = parser

@@ -1,16 +1,16 @@
-module.exports = {	
+module.exports = {
 
-	superClasses: ["NSObject"],
+  superClasses: ['NSObject'],
 
-	writeEntityHeader: function() { 
-		return "import Foundation\n\n" 
-	},
+  writeEntityHeader: function () {
+    return 'import Foundation\n\n'
+  },
 
-	writeOpenImplementation: function(entity) {
-		return "class " + entity.name.capitalizeFirstLetter()
-	},
+  writeOpenImplementation: function (entity) {
+    return 'class ' + entity.name.capitalizeFirstLetter()
+  },
 
-	writeInitAfterBody: function(entity) {
-		return "\t\tsuper.init()\n"
-	}
+  writeInitAfterBody: function (entity) {
+    return '\t\tsuper.init()\n'
+  }
 }
