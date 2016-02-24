@@ -1,6 +1,7 @@
 # json2swift (β)
 
 [![Build Status](https://travis-ci.org/viteinfinite/json2swift.svg?branch=master)](https://travis-ci.org/viteinfinite/json2swift)
+[![Coverage Status](https://coveralls.io/repos/github/viteinfinite/json2swift/badge.svg?branch=master)](https://coveralls.io/github/viteinfinite/json2swift?branch=master)
 
 Automatically create Swift entities from [JSON](http://www.json.org).
 
