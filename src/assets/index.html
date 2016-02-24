@@ -19,8 +19,15 @@
 				.getElementById("source")
 				.value
 				.replace(new RegExp("\n", 'g'), " ");
-			var sourceJSON = JSON.parse(sourceText);
+
 			var destination = document.getElementById("destination");
+
+    		try {
+         		var sourceJSON = JSON.parse(sourceText);
+    		} catch(e) {
+        		destination.innerText = e;
+        		return;
+    		}			
 			
 			var writers = [json2swift.writers.base];
 			if (document.getElementById("radio-writer-class").checked) {
