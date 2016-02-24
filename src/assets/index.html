@@ -44,7 +44,7 @@
 				writers.push(json2swift.writers.unbox);
 			}
 
-			destination.innerText = json2swift.parseDocument(sourceJSON, writers);
+			destination.textContent = json2swift.parseDocument(sourceJSON, writers);
 			hljs.highlightBlock(destination);
 		}
 		</script>
