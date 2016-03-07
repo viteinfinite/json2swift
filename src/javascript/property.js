@@ -14,6 +14,34 @@ export default class Property {
     this.isOptional = value == null
   }
 
+  isInt () {
+    return this.type === 'Int'
+  }
+
+  isUInt () {
+    return this.type === 'UInt'
+  }
+
+  isDouble () {
+    return this.type === 'Double'
+  }
+
+  isBool () {
+    return this.type === 'Bool'
+  }
+
+  isNumber () {
+    return this.isInt() || this.isUInt() || this.isDouble()
+  }
+
+  isString () {
+    return this.type === 'String'
+  }
+
+  isCustomType () {
+    return !this.isNumber() && !this.isString() && !this.isBool() && !this.isArray
+  }
+
   static resolveType (name, value) {
     if (value === null) {
       return 'Any'

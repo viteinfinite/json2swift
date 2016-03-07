@@ -61,7 +61,7 @@ describe ('json2swift', function () {
       it ('should convert a JSON containing an array of booleans', function () {
         var sourceJSON = {'array': [false, true]}
         var result = json2swift.parseDocument(sourceJSON, writers)
-        var expectedResult = fs.readFileSync('test/data/arrayOfBooleans.swift', 'utf8')
+        var expectedResult = fs.readFileSync('test/data/arrayOfBools.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
