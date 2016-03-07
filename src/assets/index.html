@@ -11,44 +11,8 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 
 		<script type="text/javascript" src="js/exports.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-		
-		<script type="text/javascript">
-		hljs.initHighlightingOnLoad();
-		function convert() {
-			var sourceText = document
-				.getElementById("source")
-				.value
-				.replace(new RegExp("\n", 'g'), " ");
-
-			var destination = document.getElementById("destination");
-
-    		try {
-         		var sourceJSON = JSON.parse(sourceText);
-    		} catch(e) {
-        		destination.innerText = e;
-        		return;
-    		}			
-			
-			var writers = [json2swift.writers.base];
-			if (document.getElementById("radio-writer-class").checked) {
-				writers.push(json2swift.writers.class);
-			}
-			if (document.getElementById("radio-writer-nsobject").checked) {
-				writers.push(json2swift.writers.class);
-				writers.push(json2swift.writers.nsObject);
-			}
-			if (document.getElementById("radio-writer-argo").checked) {
-				writers.push(json2swift.writers.argo);
-			}
-			if (document.getElementById("radio-writer-unbox").checked) {
-				writers.push(json2swift.writers.unbox);
-			}
-
-			destination.textContent = json2swift.parseDocument(sourceJSON, writers);
-			hljs.highlightBlock(destination);
-		}
-		</script>
 	</head>
 	<body>
 
@@ -65,7 +29,9 @@
 						<h6>Choose a representation</h6>
 						<input type="radio" name="representation" id="radio-writer-struct" checked> Struct<br>
   						<input type="radio" name="representation" id="radio-writer-class"> Class<br>
-  						<input type="radio" name="representation" id="radio-writer-nsobject"> NSObject<br><br>
+  						<input type="radio" name="representation" id="radio-writer-nsobject"> NSObject<br>
+  						<input type="radio" name="representation" id="radio-writer-realm"> Realm
+
 					</div>
 					<div class="six columns">
 						<h6>...and a flavor</h6>
