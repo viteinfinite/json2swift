@@ -38,3 +38,5 @@ module.exports.class = require('./class.js')
 module.exports.nsObject = require('./nsObject.js')
 module.exports.argo = require('./argo.js')
 module.exports.unbox = require('./unbox.js')
+module.exports.realm = require('./realm.js')
+
