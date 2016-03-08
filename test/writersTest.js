@@ -57,28 +57,28 @@ describe ('writers', function () {
 
       it ('should convert a JSON containing an unsigned integer', function () {
         var sourceJSON = {'uinteger': 3}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/argo-uint.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing an optional', function () {
         var sourceJSON = {'optional': null}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/argo-optional.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing an integer and a string', function () {
         var sourceJSON = {'integer': -3, 'string': 'aString'}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/argo-int-string.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing an array of strings', function () {
         var sourceJSON = {'array': ['a', 'b', 'c']}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/argo-arrayOfStrings.swift', 'utf8')
         result.should.equal(expectedResult)
       })
@@ -92,21 +92,21 @@ describe ('writers', function () {
 
       it ('should convert a JSON containing an unsigned integer', function () {
         var sourceJSON = {'uinteger': 3}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/class-uint.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing an integer and a string', function () {
         var sourceJSON = {'integer': -3, 'string': 'aString'}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/class-int-string.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing an array of strings', function () {
         var sourceJSON = {'array': ['a', 'b', 'c']}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/class-arrayOfStrings.swift', 'utf8')
         result.should.equal(expectedResult)
       })
@@ -120,7 +120,7 @@ describe ('writers', function () {
 
       it ('should convert a JSON containing an unsigned integer', function () {
         var sourceJSON = {'uinteger': 3}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/nsobject-uint.swift', 'utf8')
         result.should.equal(expectedResult)
       })
@@ -134,14 +134,14 @@ describe ('writers', function () {
 
       it ('should convert a JSON containing an unsigned integer', function () {
         var sourceJSON = {'uinteger': 3}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/unbox-uint.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a nested object', function () {
         var sourceJSON = {'nested': {'uinteger': 3}}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/unbox-nested.swift', 'utf8')
         result.should.equal(expectedResult)
       })
@@ -155,14 +155,14 @@ describe ('writers', function () {
 
       it ('should convert a JSON containing an unsigned integer', function () {
         var sourceJSON = {'uinteger': 3}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/nsobject-unbox-uint.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a nested object', function () {
         var sourceJSON = {'nested': {'uinteger': 3}}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/nsobject-unbox-nested.swift', 'utf8')
         result.should.equal(expectedResult)
       })
@@ -176,49 +176,49 @@ describe ('writers', function () {
 
       it ('should convert a JSON containing an unsigned integer', function () {
         var sourceJSON = {'uinteger': 3}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/realm-uint.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a boolean', function () {
         var sourceJSON = {'boolean': false}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/realm-bool.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a nested array', function () {
         var sourceJSON = {'nested': [{'uinteger': 3}]}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/realm-nestedArray.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a nested array of doubles', function () {
         var sourceJSON = {'nested': [0.5, 0.6]}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/realm-nestedArrayOfDoubles.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a nested object', function () {
         var sourceJSON = {'nested': {'uinteger': 3}}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/realm-nestedObject.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a string', function () {
         var sourceJSON = {'string': 'aString'}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/realm-string.swift', 'utf8')
         result.should.equal(expectedResult)
       })
 
       it ('should convert a JSON containing a double', function () {
         var sourceJSON = {'double': 0.5}
-        var result = json2swift.parseDocument(sourceJSON, writers)
+        var result = json2swift.parseDocument(sourceJSON, writers).join('')
         var expectedResult = fs.readFileSync('test/data/realm-double.swift', 'utf8')
         result.should.equal(expectedResult)
       })
