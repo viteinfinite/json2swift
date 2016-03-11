@@ -39,4 +39,5 @@ module.exports.nsObject = require('./nsObject.js')
 module.exports.argo = require('./argo.js')
 module.exports.unbox = require('./unbox.js')
 module.exports.realm = require('./realm.js')
+module.exports.jsonJoy = require('./jsonJoy.js')
 
