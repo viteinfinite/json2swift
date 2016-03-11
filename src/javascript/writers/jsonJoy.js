@@ -6,6 +6,10 @@ module.exports = {
     return 'import JSONJoy\n\n'
   },
 
+  writeProperty: function (property) {
+    return '\tvar ' + property.name + ' : ' + this.writePropertyType(property)
+  },
+
   writeOpenInit: function (entity) {
     return '\n\tinit(_ decoder: JSONDecoder) throws {\n'
   },
@@ -16,18 +20,18 @@ module.exports = {
 
   writeInitBody: function (entity) {
     return entity.properties.map((p) =>
-      this.writePropertyInitializer(p)
+      this.writePropertyInitializerBody(p)
     ).join('\n') + '\n'
   },
 
-  writePropertyInitializer (property) {
+  writePropertyInitializerBody (property) {
     if (property.isArray) {
       var propertyNameArray = property.name + 'Array'
       var propertyNameDecoders = property.name + 'Decoders'
       return '\t\tvar ' + propertyNameArray + ' = [' + property.type + ']()\n' +
       '\t\tguard let ' + propertyNameDecoders + ' = decoder["' + property.name + '"].array else { throw JSONError.WrongType }\n' +
       '\t\tfor decoder in ' + propertyNameDecoders + ' {\n' +
-      '\t\t\t' + propertyNameArray + '.append(' + property.type + '(decoder))\n' +
+      '\t\t\t' + propertyNameArray + '.append(' + this.writePropertyInitializer(property) + ')\n' +
       '\t\t}\n' +
       '\t\tself.' + property.name + ' = ' + propertyNameArray + '\n'
     }
@@ -37,6 +41,32 @@ module.exports = {
     }
 
     return '\t\tself.' + property.name + ' = try decoder[\"' + property.name + '\"].' + this.writePropertyConverter(property)
+  },
+
+  writePropertyInitializer (property) {
+    if (property.isCustomType()) {
+      return 'try ' + property.type + '(decoder)'
+    }
+
+    if (property.isUInt()) {
+      return 'try decoder.getUnsigned()'
+    }
+
+    if (property.isInt()) {
+      return 'try decoder.getInt()'
+    }
+
+    if (property.isString()) {
+      return 'try decoder.getString()'
+    }
+
+    if (property.isDouble()) {
+      return 'try decoder.getDouble()'
+    }
+
+    if (property.isBool()) {
+      return 'decoder.bool'
+    }
   },
 
   writePropertyConverter (property) {
@@ -59,7 +89,5 @@ module.exports = {
     if (property.isBool()) {
       return 'bool'
     }
-
-    dqsdsq
   }
 }
