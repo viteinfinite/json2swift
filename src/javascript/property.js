@@ -39,7 +39,7 @@ export default class Property {
   }
 
   isCustomType () {
-    return !this.isNumber() && !this.isString() && !this.isBool() && !this.isArray
+    return !this.isNumber() && !this.isString() && !this.isBool()
   }
 
   static resolveType (name, value) {

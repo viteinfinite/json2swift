@@ -2,9 +2,6 @@ module.exports = {
 
   superClasses: ['Object'],
 
-  shouldBeOptional: function (property) {
-  },
-
   writePropertyType: function (property) {
     var normalizedType = property.isUInt() ? 'Int' : property.type
 
