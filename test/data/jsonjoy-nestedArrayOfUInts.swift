@@ -13,5 +13,3 @@ struct Root : JSONJoy {
 
 	}
 }
-
-

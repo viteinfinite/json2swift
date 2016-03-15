@@ -7,5 +7,3 @@ struct Root : Unboxable {
 		self.uinteger = unboxer.unbox("uinteger")
 	}
 }
-
-

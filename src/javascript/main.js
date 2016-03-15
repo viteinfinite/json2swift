@@ -46,8 +46,8 @@ var parser = {
 
     var writer = writers.mergeWriters(appliedWriters)
     return entities.map((e) =>
-      e.write(writer)
-    ).join('')
+      ({'name': e.name, 'code': e.write(writer)})
+    )
   }
 }
 

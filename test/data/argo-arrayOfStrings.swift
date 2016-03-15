@@ -14,5 +14,3 @@ extension Root : Decodable {
 			<^> j <|| "array"
 	}
 }
-
-

@@ -8,7 +8,6 @@ struct Nested : JSONJoy {
 	}
 }
 
-
 import JSONJoy
 
 struct Root : JSONJoy {
@@ -18,5 +17,3 @@ struct Root : JSONJoy {
 		self.nested = try Nested(decoder["nested"])
 	}
 }
-
-

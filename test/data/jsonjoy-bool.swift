@@ -7,5 +7,3 @@ struct Root : JSONJoy {
 		self.boolean = try decoder["boolean"].bool
 	}
 }
-
-

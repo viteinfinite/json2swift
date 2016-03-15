@@ -7,5 +7,3 @@ struct Root : JSONJoy {
 		self.uinteger = try decoder["uinteger"].getUnsigned()
 	}
 }
-
-

@@ -8,7 +8,6 @@ struct Nested : JSONJoy {
 	}
 }
 
-
 import JSONJoy
 
 struct Root : JSONJoy {
@@ -24,5 +23,3 @@ struct Root : JSONJoy {
 
 	}
 }
-
-

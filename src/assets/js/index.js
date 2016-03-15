@@ -1,5 +1,5 @@
 hljs.initHighlightingOnLoad();
-function convert() {
+function convert () {
   var sourceText = document
     .getElementById("source")
     .value
@@ -41,6 +41,15 @@ function convert() {
     writers = [json2swift.writers.base, json2swift.writers.realm];
   }
 
-  destination.textContent = json2swift.parseDocument(sourceJSON, writers);
-  hljs.highlightBlock(destination);
+  var allEntities = json2swift.parseDocument(sourceJSON, writers);
+  var mapped = allEntities.map(function (e) {
+    return '<pre><code class="swift">' + e + '</code></pre>';
+  });
+
+  destination.innerHTML = mapped.join('\n');
+
+  var codes = Array.prototype.slice.call(document.getElementsByTagName('code'));
+  codes.forEach(function (c) {
+    hljs.highlightBlock(c);
+  });
 }
