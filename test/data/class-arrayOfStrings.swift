@@ -5,5 +5,3 @@ class Root {
 		self.array = array
 	}
 }
-
-

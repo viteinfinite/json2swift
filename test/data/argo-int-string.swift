@@ -16,5 +16,3 @@ extension Root : Decodable {
 			<*> j <| "string"
 	}
 }
-
-

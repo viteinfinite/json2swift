@@ -5,5 +5,3 @@ class Root {
 		self.uinteger = uinteger
 	}
 }
-
-

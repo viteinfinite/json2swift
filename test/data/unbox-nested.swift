@@ -8,7 +8,6 @@ struct Nested : Unboxable {
 	}
 }
 
-
 import Unbox
 
 struct Root : Unboxable {
@@ -18,5 +17,3 @@ struct Root : Unboxable {
 		self.nested = unboxer.unbox("nested")
 	}
 }
-
-

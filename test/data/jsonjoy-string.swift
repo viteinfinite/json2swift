@@ -7,5 +7,3 @@ struct Root : JSONJoy {
 		self.string = try decoder["string"].getString()
 	}
 }
-
-
