@@ -35,6 +35,8 @@ The writers, i.e. the output format, currently supported are currently:
 - `writers.nsObject`, supporting `NSObject`s
 - `writers.argo`, supporting [Argo](https://github.com/thoughtbot/Argo)
 - `writers.unbox`, supporting [Unbox](https://github.com/JohnSundell/Unbox)
+- `writers.jsonJoy`, supporting [JSONJoy](https://github.com/daltoniam/JSONJoy-Swift)
+- `writers.realm`, supporting [Realm](https://realm.io)
 
 Writers can be mixed and matched. For instance, you could provide the `parseDocument` function with an array composed of `nsObject` and `argo` writers:
 

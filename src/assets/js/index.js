@@ -32,6 +32,10 @@ function convert () {
     writers.push(json2swift.writers.unbox);
   }
 
+  if (document.getElementById('radio-writer-jsonjoy').checked) {
+    writers.push(json2swift.writers.jsonJoy);
+  }
+
   if (document.getElementById('radio-writer-realm').checked) {
     document.getElementById('radio-writer-none').checked = true;
     writers = [json2swift.writers.base, json2swift.writers.realm];
