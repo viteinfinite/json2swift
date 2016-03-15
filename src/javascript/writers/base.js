@@ -51,5 +51,5 @@ module.exports = {
 
   writeEntityFooter: function (entity) { return '' },
 
-  writeSpacer: function () { return '\n\n' }
+  writeSpacer: function () { return '' }
 }
