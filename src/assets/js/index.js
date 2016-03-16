@@ -13,7 +13,7 @@ window.onload = function (e) {
 function save (trigger) {
   var entityName = trigger.getAttribute('data-entity-name');
   var target = document.getElementById("entity-" + entityName);
-  var blob = new Blob([target.textContent], {'type': 'text/plain;charset=utf-8'});
+  var blob = new Blob([target.textContent], {'type': 'text/x-swift;charset=utf-8'});
   saveAs(blob, entityName + ".swift");
 }
 
