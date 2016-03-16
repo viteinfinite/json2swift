@@ -1,5 +1,5 @@
 .logo {
-	width: 33%;
+  width: 33%;
 }
 
 .source {
@@ -20,5 +20,23 @@ footer {
 }
 
 .xebia-logo {
-	width: 20%;
+  width: 20%;
+}
+
+pre {
+  position: relative;
+}
+
+.action-container {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.action-button {
+  float: right;
+  font-size: 2.5rem;
+  margin-left: 1rem;
+  padding: 0;
+  width: 4rem;
 }
