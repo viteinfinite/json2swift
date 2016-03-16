@@ -1,5 +1,9 @@
 module.exports = {
 
+  writeBasePropertyType: function (property) {
+    return property.isUInt() ? 'Int' : property.type
+  },
+
   writePropertyRune: function (index, property) {
     var rune = index === 0 ? '^' : '*'
     var runeArrow = property.isArray ? '<||' : '<|'

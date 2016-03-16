@@ -1,11 +1,15 @@
 module.exports = {
 
+  writeBasePropertyType: function (property) {
+    return property.type
+  },
+
   writePropertyType: function (property) {
     var result = ''
     if (property.isArray) {
-      result += '[' + property.type + ']'
+      result += '[' + this.writeBasePropertyType(property) + ']'
     } else {
-      result += property.type
+      result += this.writeBasePropertyType(property)
     }
     if (property.isOptional) {
       result += '?'
