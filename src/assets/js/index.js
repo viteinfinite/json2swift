@@ -1,6 +1,7 @@
 hljs.initHighlightingOnLoad();
 
-window.onload = function(e){ 
+// Actions
+window.onload = function (e) { 
   var clipboard = new Clipboard('.copy-button', {
     target: function(trigger) {
       var entityName = trigger.getAttribute('data-entity-name');
@@ -9,13 +10,27 @@ window.onload = function(e){
   });
 }
 
-function save(trigger) {
+function save (trigger) {
   var entityName = trigger.getAttribute('data-entity-name');
   var target = document.getElementById("entity-" + entityName);
   var blob = new Blob([target.textContent], {'type': 'text/plain;charset=utf-8'});
   saveAs(blob, entityName + ".swift");
 }
 
+// Utils
+function escapeHtml (text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
+// Conversion
 function convert () {
   var sourceText = document
     .getElementById("source")
@@ -26,7 +41,7 @@ function convert () {
 
   try {
     var sourceJSON = JSON.parse(sourceText);
-  } catch(e) {
+  } catch (e) {
     destination.innerText = e;
     return;
   }
@@ -65,7 +80,7 @@ function convert () {
         '<button class="action-button copy-button ion-paperclip" data-entity-name="' + e.name + '"></button>' +
         '<button class="action-button save-button ion-ios-download-outline" data-entity-name="' + e.name + '" onclick="javascript:save(this)"></button>' +
       '</div>' +
-      '<code class="swift" id="entity-' + e.name + '">' + e.code + '</code>' +
+      '<code class="swift" id="entity-' + e.name + '">' + escapeHtml(e.code) + '</code>' +
     '</pre>';
   });
 

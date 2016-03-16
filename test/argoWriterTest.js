@@ -34,6 +34,12 @@ describe ('The Argo writer', function () {
       var result = u.join(json2swift.parseDocument(sourceJSON, writers))
       result.should.equal(u.readFixture('argo-arrayOfStrings'))
     })
+
+    it ('should convert a JSON containing an array of unsigned integers', function () {
+      var sourceJSON = {'array': [1, 2, 3]}
+      var result = u.join(json2swift.parseDocument(sourceJSON, writers))
+      result.should.equal(u.readFixture('argo-arrayOfUIntegers'))
+    })
   })
 })
 

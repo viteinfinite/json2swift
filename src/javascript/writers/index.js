@@ -4,7 +4,7 @@ module.exports = {
     var mergedWriter = {
       superClasses: [],
       protocols: [],
-      writeInterfaces: function () {
+      interfaces: function () {
         var interfaces = this.superClasses.concat(this.protocols)
         if (interfaces.length === 0) {
           return ''

@@ -1,11 +1,15 @@
 module.exports = {
 
-  writePropertyType: function (property) {
+  basePropertyType: function (property) {
+    return property.type
+  },
+
+  propertyType: function (property) {
     var result = ''
     if (property.isArray) {
-      result += '[' + property.type + ']'
+      result += '[' + this.basePropertyType(property) + ']'
     } else {
-      result += property.type
+      result += this.basePropertyType(property)
     }
     if (property.isOptional) {
       result += '?'
@@ -13,43 +17,35 @@ module.exports = {
     return result
   },
 
-  writeEntityHeader: function (entity) { return '' },
+  entityHeader: function (entity) { return '' },
 
-  writeOpenImplementation: function (entity) {
+  openImplementation: function (entity) {
     return 'struct ' + entity.name.capitalizeFirstLetter()
   },
 
-  writeSuperClasses: function () {
-    return ''
+  property: function (property) {
+    return '\tlet ' + property.name + ' : ' + this.propertyType(property)
   },
 
-  writeProtocols: function () {
-    return ''
-  },
-
-  writeProperty: function (property) {
-    return '\tlet ' + property.name + ' : ' + this.writePropertyType(property)
-  },
-
-  writeStatement: function (property) {
+  statement: function (property) {
     return 'self.' + property.name + ' = ' + property.name
   },
 
-  writeParameter: function (property) {
-    return property.name + ': ' + this.writePropertyType(property)
+  parameter: function (property) {
+    return property.name + ': ' + this.propertyType(property)
   },
 
-  writeOpenInit: function (entity) { return '' },
+  openInit: function (entity) { return '' },
 
-  writeInitBeforeBody: function (entity) { return '' },
+  initBeforeBody: function (entity) { return '' },
 
-  writeInitBody: function (entity) { return '' },
+  initBody: function (entity) { return '' },
 
-  writeInitAfterBody: function (entity) { return '' },
+  initAfterBody: function (entity) { return '' },
 
-  writeCloseInit: function (entity) { return '' },
+  closeInit: function (entity) { return '' },
 
-  writeEntityFooter: function (entity) { return '' },
+  entityFooter: function (entity) { return '' },
 
-  writeSpacer: function () { return '' }
+  spacer: function () { return '' }
 }

@@ -2,36 +2,36 @@ module.exports = {
 
   protocols: ['JSONJoy'],
 
-  writeEntityHeader: function () {
+  entityHeader: function () {
     return 'import JSONJoy\n\n'
   },
 
-  writeProperty: function (property) {
-    return '\tvar ' + property.name + ' : ' + this.writePropertyType(property)
+  property: function (property) {
+    return '\tvar ' + property.name + ' : ' + this.propertyType(property)
   },
 
-  writeOpenInit: function (entity) {
+  openInit: function (entity) {
     return '\n\tinit(_ decoder: JSONDecoder) throws {\n'
   },
 
-  writeCloseInit: function (entity) {
+  closeInit: function (entity) {
     return '\t}\n'
   },
 
-  writeInitBody: function (entity) {
+  initBody: function (entity) {
     return entity.properties.map((p) =>
-      this.writePropertyInitializerBody(p)
+      this.propertyInitializerBody(p)
     ).join('\n') + '\n'
   },
 
-  writePropertyInitializerBody (property) {
+  propertyInitializerBody (property) {
     if (property.isArray) {
       var propertyNameArray = property.name + 'Array'
       var propertyNameDecoders = property.name + 'Decoders'
       return '\t\tvar ' + propertyNameArray + ' = [' + property.type + ']()\n' +
       '\t\tguard let ' + propertyNameDecoders + ' = decoder["' + property.name + '"].array else { throw JSONError.WrongType }\n' +
       '\t\tfor decoder in ' + propertyNameDecoders + ' {\n' +
-      '\t\t\t' + propertyNameArray + '.append(' + this.writePropertyInitializer(property) + ')\n' +
+      '\t\t\t' + propertyNameArray + '.append(' + this.propertyInitializer(property) + ')\n' +
       '\t\t}\n' +
       '\t\tself.' + property.name + ' = ' + propertyNameArray + '\n'
     }
@@ -40,10 +40,10 @@ module.exports = {
       return '\t\tself.' + property.name + ' = try ' + property.type + '(decoder[\"' + property.name + '\"])'
     }
 
-    return '\t\tself.' + property.name + ' = try decoder[\"' + property.name + '\"].' + this.writePropertyConverter(property)
+    return '\t\tself.' + property.name + ' = try decoder[\"' + property.name + '\"].' + this.propertyConverter(property)
   },
 
-  writePropertyInitializer (property) {
+  propertyInitializer (property) {
     if (property.isCustomType()) {
       return 'try ' + property.type + '(decoder)'
     }
@@ -69,7 +69,7 @@ module.exports = {
     }
   },
 
-  writePropertyConverter (property) {
+  propertyConverter (property) {
     if (property.isUInt()) {
       return 'getUnsigned()'
     }

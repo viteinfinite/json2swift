@@ -1,23 +1,27 @@
 module.exports = {
 
-  writePropertyRune: function (index, property) {
+  basePropertyType: function (property) {
+    return property.isUInt() ? 'Int' : property.type
+  },
+
+  propertyRune: function (index, property) {
     var rune = index === 0 ? '^' : '*'
     var runeArrow = property.isArray ? '<||' : '<|'
     runeArrow += property.isOptional ? '?' : ''
     return '<' + rune + '> j ' + runeArrow + ' \"' + property.name + '\"'
   },
 
-  writeEntityHeader: function () {
+  entityHeader: function () {
     return 'import Argo\n\n'
   },
 
-  writeEntityFooter: function (entity) {
+  entityFooter: function (entity) {
     var result = '\n'
     result += 'extension ' + entity.name + ' : Decodable {\n'
 
     // Create
     result += '\tstatic func create'
-    result += entity.properties.map((p) => '(' + p.name + ': ' + this.writePropertyType(p) + ')').join('')
+    result += entity.properties.map((p) => '(' + p.name + ': ' + this.propertyType(p) + ')').join('')
     result += ' -> ' + entity.name + ' {\n'
     result += '\t\treturn ' + entity.name + '('
 
@@ -31,7 +35,7 @@ module.exports = {
     result += '\tstatic func decode(j: JSON) -> Decoded<' + entity.name + '> {\n'
     result += '\t\treturn self.create\n'
     result += entity.properties.map((p, idx) =>
-      '\t\t\t' + this.writePropertyRune(idx, p) + '\n'
+      '\t\t\t' + this.propertyRune(idx, p) + '\n'
     ).join('')
     result += '\t}\n'
     result += '}\n'

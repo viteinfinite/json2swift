@@ -5,22 +5,22 @@ export default class Entity {
   }
 
   write (writer) {
-    var result = writer.writeEntityHeader(this)
-    result += writer.writeOpenImplementation(this)
-    result += writer.writeInterfaces()
+    var result = writer.entityHeader(this)
+    result += writer.openImplementation(this)
+    result += writer.interfaces()
     result += ' {\n'
     result += this.properties.map((p) =>
-      writer.writeProperty(p)
+      writer.property(p)
     ).join('\n')
     result += '\n'
-    result += writer.writeOpenInit(this)
-    result += writer.writeInitBeforeBody(this)
-    result += writer.writeInitBody(this)
-    result += writer.writeInitAfterBody(this)
-    result += writer.writeCloseInit(this)
+    result += writer.openInit(this)
+    result += writer.initBeforeBody(this)
+    result += writer.initBody(this)
+    result += writer.initAfterBody(this)
+    result += writer.closeInit(this)
     result += '}\n'
-    result += writer.writeEntityFooter(this)
-    result += writer.writeSpacer()
+    result += writer.entityFooter(this)
+    result += writer.spacer()
     return result
   }
 }

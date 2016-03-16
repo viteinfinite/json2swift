@@ -1,16 +1,16 @@
 import Argo
 
 struct Root {
-	let uinteger : Int
+	let array : [Int]
 }
 
 extension Root : Decodable {
-	static func create(uinteger: Int) -> Root {
-		return Root(uinteger: uinteger)
+	static func create(array: [Int]) -> Root {
+		return Root(array: array)
 	}
 
 	static func decode(j: JSON) -> Decoded<Root> {
 		return self.create
-			<^> j <| "uinteger"
+			<^> j <|| "array"
 	}
 }
