@@ -1,27 +1,27 @@
 module.exports = {
 
-  writeOpenImplementation: function (entity) {
+  openImplementation: function (entity) {
     return 'class ' + entity.name.capitalizeFirstLetter()
   },
 
-  writeOpenInit: function (entity) {
+  openInit: function (entity) {
     return '\n\tinit(' +
     entity.properties.map((p) =>
-      this.writeParameter(p)
+      this.parameter(p)
     ).join(', ') + ') {\n'
   },
 
-  writeInitBody: function (entity) {
+  initBody: function (entity) {
     return entity.properties.map((p) =>
       '\t\tself.' + p.name + ' = ' + p.name
     ).join('\n') + '\n'
   },
 
-  writeCloseInit: function (entity) {
+  closeInit: function (entity) {
     return '\t}\n'
   },
 
-  writeParameter: function (property) {
-    return property.name + ': ' + this.writePropertyType(property)
+  parameter: function (property) {
+    return property.name + ': ' + this.propertyType(property)
   }
 }

@@ -2,15 +2,15 @@ module.exports = {
 
   superClasses: ['NSObject'],
 
-  writeEntityHeader: function () {
+  entityHeader: function () {
     return 'import Foundation\n\n'
   },
 
-  writeOpenImplementation: function (entity) {
+  openImplementation: function (entity) {
     return 'class ' + entity.name.capitalizeFirstLetter()
   },
 
-  writeInitAfterBody: function (entity) {
+  initAfterBody: function (entity) {
     return '\t\tsuper.init()\n'
   }
 }

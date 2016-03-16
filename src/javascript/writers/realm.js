@@ -2,33 +2,33 @@ module.exports = {
 
   superClasses: ['Object'],
 
-  writeBasePropertyType: function (property) {
+  basePropertyType: function (property) {
     return property.isUInt() ? 'Int' : property.type
   },
 
-  writePropertyType: function (property) {
+  propertyType: function (property) {
     if (property.isArray) {
-      return 'List<' + this.writeBasePropertyType(property) + '>'
+      return 'List<' + this.basePropertyType(property) + '>'
     }
 
     if (property.isNumber()) {
       if (property.isOptional) {
-        return 'RealmOptional<' + this.writeBasePropertyType(property) + '>'
+        return 'RealmOptional<' + this.basePropertyType(property) + '>'
       }
-      return this.writeBasePropertyType(property)
+      return this.basePropertyType(property)
     }
 
     if (property.isOptional) {
-      return this.writeBasePropertyType(property) + '?'
+      return this.basePropertyType(property) + '?'
     }
 
-    return this.writeBasePropertyType(property)
+    return this.basePropertyType(property)
   },
 
-  writeDefaultValue: function (property) {
+  defaultValue: function (property) {
     if (property.isOptional) {
       if (property.isNumber()) {
-        return ' = RealmOptional<' + this.writeBasePropertyType(property) + '>()'
+        return ' = RealmOptional<' + this.basePropertyType(property) + '>()'
       }
 
       if (property.isBool()) {
@@ -43,7 +43,7 @@ module.exports = {
     }
 
     if (property.isArray) {
-      return ' = List<' + this.writeBasePropertyType(property) + '>()'
+      return ' = List<' + this.basePropertyType(property) + '>()'
     }
 
     if (property.isNumber()) {
@@ -65,18 +65,18 @@ module.exports = {
     return ' = nil'
   },
 
-  writeEntityHeader: function () {
+  entityHeader: function () {
     return 'import RealmSwift\n\n'
   },
 
-  writeOpenImplementation: function (entity) {
+  openImplementation: function (entity) {
     return 'class ' + entity.name.capitalizeFirstLetter()
   },
 
-  writeProperty: function (property) {
+  property: function (property) {
     if (property.isArray) {
-      return '\tlet ' + property.name + ' : ' + this.writePropertyType(property) + this.writeDefaultValue(property)
+      return '\tlet ' + property.name + ' : ' + this.propertyType(property) + this.defaultValue(property)
     }
-    return '\tdynamic var ' + property.name + ' : ' + this.writePropertyType(property) + this.writeDefaultValue(property)
+    return '\tdynamic var ' + property.name + ' : ' + this.propertyType(property) + this.defaultValue(property)
   }
 }

@@ -35,14 +35,14 @@ describe ('Given the writer composition', function () {
       var aWriter = {'superClasses': ['a']}
       var anotherWriter = {'protocols': ['b']}
       var merged = allWriters.mergeWriters([aWriter, anotherWriter])
-      merged.writeInterfaces().should.equal(' : a, b')
+      merged.interfaces().should.equal(' : a, b')
     })
 
     it ('should write superClasses and protocols in order', function () {
       var aWriter = {'superClasses': ['a']}
       var anotherWriter = {'protocols': ['b']}
       var merged = allWriters.mergeWriters([anotherWriter, aWriter])
-      merged.writeInterfaces().should.equal(' : a, b')
+      merged.interfaces().should.equal(' : a, b')
     })
   })
 
