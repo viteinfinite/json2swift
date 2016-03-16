@@ -2,33 +2,33 @@ module.exports = {
 
   superClasses: ['Object'],
 
-  writePropertyType: function (property) {
-    var normalizedType = property.isUInt() ? 'Int' : property.type
+  writeBasePropertyType: function (property) {
+    return property.isUInt() ? 'Int' : property.type
+  },
 
+  writePropertyType: function (property) {
     if (property.isArray) {
-      return 'List<' + normalizedType + '>'
+      return 'List<' + this.writeBasePropertyType(property) + '>'
     }
 
     if (property.isNumber()) {
       if (property.isOptional) {
-        return 'RealmOptional<' + normalizedType + '>'
+        return 'RealmOptional<' + this.writeBasePropertyType(property) + '>'
       }
-      return normalizedType
+      return this.writeBasePropertyType(property)
     }
 
     if (property.isOptional) {
-      return normalizedType + '?'
+      return this.writeBasePropertyType(property) + '?'
     }
 
-    return normalizedType
+    return this.writeBasePropertyType(property)
   },
 
   writeDefaultValue: function (property) {
-    var normalizedType = property.isUInt() ? 'Int' : property.type
-
     if (property.isOptional) {
       if (property.isNumber()) {
-        return ' = RealmOptional<' + normalizedType + '>()'
+        return ' = RealmOptional<' + this.writeBasePropertyType(property) + '>()'
       }
 
       if (property.isBool()) {
@@ -43,7 +43,7 @@ module.exports = {
     }
 
     if (property.isArray) {
-      return ' = List<' + normalizedType + '>()'
+      return ' = List<' + this.writeBasePropertyType(property) + '>()'
     }
 
     if (property.isNumber()) {
