@@ -7,5 +7,3 @@ class Root {
 		self.string = string
 	}
 }
-
-

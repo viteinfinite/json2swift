@@ -8,5 +8,3 @@ class Root : NSObject {
 		super.init()
 	}
 }
-
-

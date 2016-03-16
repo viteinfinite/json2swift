@@ -8,11 +8,16 @@
 		<link href='https://fonts.googleapis.com/css?family=PT+Mono&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+		<link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.8/clipboard.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
 
 		<script type="text/javascript" src="js/exports.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+
 	</head>
 	<body>
 
@@ -52,7 +57,9 @@
 				<textarea class="source" id="source">
 {
 	"name": "JSON2Swift",
-	"isYour": ["friend"]
+	"is": [{
+		"your": "friend"
+	}]
 }
 				</textarea>
 			</div>
@@ -61,8 +68,8 @@
 				<button onclick="javascript:convert()">Convert</button>
 			</div>
 			
-			<div class="row"> 
-				<pre><code class="swift" id="destination">...</code></pre>
+			<div class="row" id="destination"> 
+				
 			</div>
 
 			<footer>

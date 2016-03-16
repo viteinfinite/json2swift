@@ -9,7 +9,6 @@ class Nested : NSObject, Unboxable {
 	}
 }
 
-
 import Unbox
 
 class Root : NSObject, Unboxable {
@@ -20,5 +19,3 @@ class Root : NSObject, Unboxable {
 		super.init()
 	}
 }
-
-
