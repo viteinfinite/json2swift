@@ -35,6 +35,12 @@ describe ('The Realm writer', function () {
       result.should.equal(u.readFixture('realm-nestedArrayOfDoubles'))
     })
 
+    it ('should convert a JSON containing a nested array of custom objects', function () {
+      var sourceJSON = {'nested': [{'key': 'value'}]}
+      var result = u.join(json2swift.parseDocument(sourceJSON, writers))
+      result.should.equal(u.readFixture('realm-nestedArrayOfCustomObjects'))
+    })
+
     it ('should convert a JSON containing a nested object', function () {
       var sourceJSON = {'nested': {'uinteger': 3}}
       var result = u.join(json2swift.parseDocument(sourceJSON, writers))
