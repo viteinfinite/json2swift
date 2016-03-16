@@ -1,4 +1,21 @@
 hljs.initHighlightingOnLoad();
+
+window.onload = function(e){ 
+  var clipboard = new Clipboard('.copy-button', {
+    target: function(trigger) {
+      var entityName = trigger.getAttribute('data-entity-name');
+      return document.getElementById("entity-" + entityName);
+    }
+  });
+}
+
+function save(trigger) {
+  var entityName = trigger.getAttribute('data-entity-name');
+  var target = document.getElementById("entity-" + entityName);
+  var blob = new Blob([target.textContent], {'type': 'text/plain;charset=utf-8'});
+  saveAs(blob, entityName + ".swift");
+}
+
 function convert () {
   var sourceText = document
     .getElementById("source")
@@ -43,7 +60,13 @@ function convert () {
 
   var allEntities = json2swift.parseDocument(sourceJSON, writers);
   var mapped = allEntities.map(function (e) {
-    return '<pre><code class="swift">' + e + '</code></pre>';
+    return '<pre>' +
+      '<div class="action-container">' +
+        '<button class="action-button copy-button ion-paperclip" data-entity-name="' + e.name + '"></button>' +
+        '<button class="action-button save-button ion-ios-download-outline" data-entity-name="' + e.name + '" onclick="javascript:save(this)"></button>' +
+      '</div>' +
+      '<code class="swift" id="entity-' + e.name + '">' + e.code + '</code>' +
+    '</pre>';
   });
 
   destination.innerHTML = mapped.join('\n');
