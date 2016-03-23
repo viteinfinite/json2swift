@@ -22,19 +22,18 @@ var parser = {
     visitableNodeNames.push(name)
     var properties = []
 
-    var keys = Object.keys(node)
+    const keys = Object.keys(node)
 
-    for (var index = 0; index < keys.length; index++) {
-      var key = keys[index]
-      var keyName = String(key)
-      var value = node[key]
+    for (let key of keys) {
+      const keyName = String(key)
+      const value = node[key]
       properties.push(new Property(keyName, value))
       if (typeof value === 'object') {
         parser.parseNode(value, keyName, visitableNodeNames, entities)
       }
     }
 
-    var entityName = name || 'Root'
+    const entityName = name || 'Root'
     entities.push(new Entity(entityName, properties))
   },
 
